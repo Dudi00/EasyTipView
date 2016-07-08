@@ -67,6 +67,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             withinSuperview: self.navigationController?.view,
             text: text,
             delegate : self)
+        
     }
     
     @IBAction func toolbarItemAction() {
@@ -78,6 +79,9 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             let text = "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips."
             let tip = EasyTipView(text: text, delegate: self)
             tip.show(forItem: toolbarItem)
+            tip.onTapDismiss = {
+                print("dismiss with tap")
+            }
             tipView = tip
         }
     }

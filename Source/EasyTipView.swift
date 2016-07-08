@@ -123,6 +123,17 @@ public extension EasyTipView {
             animations()
         }
     }
+
+    /**
+     Dismiss the EasyTipView by tap
+     
+     - parameter completion: Completion block
+     */
+    
+    private func dismissByTap(withCompletion completion: (() -> ())? = nil){
+        self.onTapDismiss?()
+        baseDismiss(withCompletion: completion)
+    }
     
     /**
      Dismisses the EasyTipView
@@ -130,6 +141,10 @@ public extension EasyTipView {
      - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
      */
     public func dismiss(withCompletion completion: (() -> ())? = nil){
+        baseDismiss(withCompletion: completion)
+    }
+    
+    private func baseDismiss(withCompletion completion:(() -> Void)? = nil) {
         
         let damping = preferences.animating.springDamping
         let velocity = preferences.animating.springVelocity
@@ -226,6 +241,7 @@ public class EasyTipView: UIView {
     private var arrowTip            =   CGPointZero
     private var preferences         :   Preferences
     public let text                 :   String
+    public var onTapDismiss         :   (()->Void)?
     
     // MARK: - Lazy variables -
     
@@ -346,7 +362,7 @@ public class EasyTipView: UIView {
     // MARK:- Callbacks -
     
     func handleTap() {
-        dismiss()
+        dismissByTap()
     }
     
     // MARK:- Drawing -
